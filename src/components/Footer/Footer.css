@@ -1,0 +1,18 @@
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #333; /* Set your preferred background color */
+  color: white; /* Set your preferred text color */
+  padding: 20px;
+  border-radius: 10px; /* Add rounded corners */
+}
+
+.footer-column {
+  flex: 1;
+  margin-right: 20px; /* Adjust spacing between columns */
+}
+
+.social-icons img {
+  width: 30px; /* Set the size of your social media icons */
+  margin-right: 10px; /* Adjust spacing between icons */
+}

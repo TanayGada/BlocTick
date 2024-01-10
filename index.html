@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./src/assets/logo2.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      /* overflow: hidden; */
+      background: linear-gradient(45deg, #FF6B6B, #556270, #FF6B6B);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+  <title>BlocTick</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>

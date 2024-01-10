@@ -1,0 +1,24 @@
+/* app.css */
+.animated-background {
+  background: linear-gradient(60deg, #013c5e, #bcf0f0f1, #53018d);
+  background-size: 400% 400%;
+  min-height: 100vh;
+  padding: 1rem;
+  animation: gradientAnimation 7.5s ease infinite;
+}
+.scrollable-content {
+  max-height: 100vh; /* Set a maximum height if needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
