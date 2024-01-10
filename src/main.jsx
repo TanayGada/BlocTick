@@ -5,6 +5,7 @@ import App from './App'
 import Events from './components/Events/Events'
 import Calendar from './components/Calendar/Calendar'
 import Explore from './components/Explore/Explore'
+import CreateEvent from './components/Create-Event/createEvent'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'explore',
         element: <Explore />,
+      },
+      {
+        path: 'create-event',
+        element: <CreateEvent/>,
       },
     ],
   },

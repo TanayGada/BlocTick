@@ -11,17 +11,20 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import logo from '../../assets/logo2.png'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 const pages = ['Events', 'Calendar', 'Explore']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+const settings = ['View Profile', 'Logout']
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [activeLink, setActiveLink] = useState(null)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
   }
@@ -34,9 +37,13 @@ function ResponsiveAppBar() {
     setAnchorElUser(null)
   }
 
+  const handleLinkClick = (page) => {
+    setActiveLink(page)
+    handleCloseNavMenu()
+  }
   return (
     <AppBar
-      position='static'
+      position='fixed'
       sx={{
         boxSizing: 'border-box',
         top: 0,
@@ -46,25 +53,27 @@ function ResponsiveAppBar() {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '1rem',
-        backdropFilter: 'blur(10px)',
+        backdropFilter: 'blur(15px)',
         backgroundColor: 'rgba(255, 255, 255, 0)',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0.1 0px 0px rgba(0, 0,0,0)',
         zIndex: 1000,
-        height: '20px',
+        height: '50px',
+        paddingBottom: '10px',
       }}
     >
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <img
-            style={{ fill: 'none', color: 'rgba(255, 255, 255, 0.5)' }}
-            src={logo}
-            style={{
-              mixBlendMode: 'color-burn',
-              width: '25px',
-              justifyItems: 'left',
-            }}
-            alt='Logo'
-          />
+          <div className='logo-container'>
+            <img
+              src={logo}
+              style={{
+                width: '25px',
+                fill: 'none',
+                color: 'rgba(255, 255, 255, 0.5)',
+              }}
+              alt='Logo'
+            />
+          </div>
 
           <Box
             sx={{
@@ -83,14 +92,13 @@ function ResponsiveAppBar() {
                 <Typography
                   key={page}
                   variant='body1'
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleLinkClick(page)}
                   sx={{
                     mx: 2,
                     cursor: 'pointer',
-                    // color: 'hsla(0, 0%, 100%, 0.5)', // Initial color
-                    color: 'grey',
+                    color: activeLink === page ? 'black' : 'grey',
                     ':hover': {
-                      color: 'black', // Color on hover
+                      color: 'black',
                     },
                   }}
                 >
@@ -100,9 +108,39 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              justifyContent: 'right',
+              alignItems: 'center',
+              marginLeft: 'auto',
+            }}
+          >
+            <Link
+              to='/create-event'
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <Typography
+                variant='body1'
+                onClick={handleCloseNavMenu}
+                sx={{
+                  mx: 2,
+                  cursor: 'pointer',
+                  color: 'grey',
+                  ':hover': {
+                    color: 'black',
+                  },
+                }}
+              >
+                Create Event
+              </Typography>
+            </Link>
+          </Box>
+
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title='Open settings' >
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
+            <Tooltip title='Open settings'>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
               </IconButton>
             </Tooltip>

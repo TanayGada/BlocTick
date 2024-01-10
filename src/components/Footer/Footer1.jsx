@@ -1,40 +1,64 @@
 import React from 'react'
-import './Footer.css' // Import your custom styles
+import {
+  Footer,
+  FooterCopyright,
+  FooterLink,
+  FooterLinkGroup,
+} from 'flowbite-react'
+import logo from '../../assets/logo3.png'
+import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 
-const Footer = () => {
+const Footer1 = () => {
   return (
-    <div className='footer-container'>
-      {/* Left column */}
-      <div className='footer-column'>
-        <h3>Contact Us</h3>
-        <p>Email: blocTick@gmail.com</p>
-        {/* Add more contact information as needed */}
+    <>
+      <div
+        className='divider divider-horizontal'
+      ></div>
 
-        {/* Social Media Icons */}
-        <div className='social-icons'>
-          <a href='#' target='_blank' rel='noopener noreferrer'>
-            <img src='path/to/facebook-icon.svg' alt='Facebook' />
-          </a>
-          <a href='#' target='_blank' rel='noopener noreferrer'>
-            <img src='path/to/twitter-icon.svg' alt='Twitter' />
-          </a>
-          {/* Add more social media icons as needed */}
+      <footer className='bg-transparent rounded-lg shadow  dark:bg-gray-800'>
+        <div className='w-full mx-auto max-w-screen-xl p-4 flex items-center justify-between md:flex md:items-center md:justify-between'>
+          {/* Logo on the extreme left */}
+          <div className='flex items-center'>
+            <img src={logo} alt='Logo' className='w-13 h-8 mr-4' />
+          </div>
+
+          {/* Social media icons on the extreme right */}
+          <ul
+            className='flex items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0 md:ml-auto'
+            style={{ justifyContent: 'end' }}
+          >
+            <li className='me-4'>
+              <a href='#' className='hover:underline'>
+                <FaInstagram
+                  size={24}
+                  color='#E4405F'
+                  style={{ verticalAlign: 'middle' }}
+                />
+              </a>
+            </li>
+            <li className='me-4'>
+              <a href='#' className='hover:underline'>
+                <FaTwitter
+                  size={24}
+                  color='#1DA1F2'
+                  style={{ verticalAlign: 'middle' }}
+                />
+              </a>
+            </li>
+            <li>
+              <a href='#' className='hover:underline'>
+                <FaYoutube
+                  size={24}
+                  color='#FF0000'
+                  style={{ verticalAlign: 'middle' }}
+                />
+              </a>
+            </li>
+          </ul>
         </div>
-      </div>
-
-      {/* Middle column */}
-      <div className='footer-column'>
-        <h3>Privacy Policy</h3>
-        <a href='/privacy-policy'>Read our Privacy Policy</a>
-      </div>
-
-      {/* Right column */}
-      <div className='footer-column'>
-        <h3>Terms of Service</h3>
-        <a href='/terms-of-service'>View our Terms of Service</a>
-      </div>
-    </div>
+      </footer>
+    </>
   )
 }
 
-export default Footer
+export default Footer1

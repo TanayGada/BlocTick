@@ -1,10 +1,28 @@
 /* app.css */
 .animated-background {
-  background: linear-gradient(45deg, #00796b, #004d40, #00796b);
+  background: linear-gradient(45deg, #73db9b, #004d40, #00796b);
   background-size: 400% 400%;
   min-height: 100vh;
   padding: 1rem;
-  animation: gradientAnimation 10s ease infinite;
+  animation: gradientAnimation 8s ease infinite;
+}
+
+.main-content {
+  margin-top: 50px;
+}
+
+.footer {
+  margin-top: 20px;
+
+}
+
+.logo-container {
+  mix-blend-mode: color-burn;
+  transition: color 0.3s ease;
+}
+
+.logo-container:hover {
+  color: #000;
 }
 
 @keyframes gradientAnimation {
@@ -18,3 +36,17 @@
     background-position: 0% 50%;
   }
 }
+
+/* create event outer div*/
+.transparent-blur-div {
+  background-color: rgba(255, 255, 255, 0.65); /* Adjust the opacity as needed */
+  backdrop-filter: blur(20px); /* Adjust the blur radius as needed */
+  border-radius: 12px; /* Adjust the border-radius as needed */
+  padding: 10px; /* Add padding as needed */
+}
+
+/* Add additional styling for your content inside the div if necessary */
+.transparent-blur-div p {
+  color: #333; /* Adjust the text color as needed */
+}
+
