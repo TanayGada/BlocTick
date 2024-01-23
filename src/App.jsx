@@ -8,17 +8,10 @@ import SignUp from './components/Login-Page/SignUp'
 function App() {
   return (
     <>
-   
       <div className='animated-background'>
         <Navbar1 />
-        <div
-          style={{
-            margin: '0 auto',
-            width: '60%',
-            textAlign: 'center',
-          }}
-        >
-          <div className='main-content'>
+        <div className='main-container'>
+          <div style={{marginTop:'50px'}}>
             <Outlet />
           </div>
           <Footer1 className='footer' />

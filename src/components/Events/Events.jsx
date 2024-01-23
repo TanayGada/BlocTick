@@ -1,14 +1,80 @@
-import React from 'react'
-import Top from './Top'
-import Middle from './Middle'
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Past from './Past'
+import Upcoming from './Upcoming'
 
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props
 
-const Events = () => {
   return (
-    <div>
-      <Top />
-      <Middle/>
+    <div
+      role='tabpanel'
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
   )
-};
-export default Events
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  }
+}
+
+export default function BasicTabs() {
+  const [value, setValue] = React.useState(0)
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
+
+  return (
+    <Box sx={{ width: '100%'}}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        
+          marginBottom: '10px',
+        }}
+      >
+        <h1 style={{ fontSize: '50px', zIndex: 1, margin: 0 }}>Events</h1>
+
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label='basic tabs example'
+        >
+          <Tab label='Upcoming' {...a11yProps(0)} />
+          <Tab label='Past' {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <Upcoming/>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <Past/>
+      </CustomTabPanel>
+    </Box>
+  )
+}

@@ -1,15 +1,17 @@
 /* app.css */
 .animated-background {
-  background: linear-gradient(45deg, #73db9b, #004d40, #00796b);
+  background: linear-gradient(60deg, #013c5e, #bcf0f0f1, #53018d);
   background-size: 400% 400%;
   min-height: 100vh;
   padding: 1rem;
-  animation: gradientAnimation 8s ease infinite;
+  animation: gradientAnimation 7.5s ease infinite;
 }
 
-.main-content {
-  margin-top: 50px;
+.scrollable-content {
+  max-height: 100vh; /* Set a maximum height if needed */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
+
 
 .footer {
   margin-top: 20px;
@@ -50,3 +52,15 @@
   color: #333; /* Adjust the text color as needed */
 }
 
+
+
+.main-container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+@media (max-width: 805px) {
+  .main-container {
+    width: 95%;
+  }
+}

@@ -59,6 +59,7 @@ function ResponsiveAppBar() {
         zIndex: 1000,
         height: '50px',
         paddingBottom: '10px',
+       
       }}
     >
       <Container maxWidth='xl'>

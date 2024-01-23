@@ -1,118 +1,62 @@
-import React, { useState } from 'react'
-import styles from './event.module.css';
-
+import React from 'react'
+import './CreateEvent.css'
 
 const EventForm = () => {
-  const [formState, setFormState] = useState({
-    eventName: '',
-    eventStart: '',
-    eventEnd: '',
-    eventLocation: '',
-    tickets: 'Free',
-    requireApproval: false,
-    capacity: 'Unlimited',
-    visibility: 'Public',
-  })
-
-  const handleInputChange = (event) => {
-    setFormState({
-      ...formState,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  const handleCheckboxChange = (event) => {
-    setFormState({
-      ...formState,
-      [event.target.name]: event.target.checked,
-    })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log(formState)
-  }
-
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <label >
-        Event Name:
-        <input
-          type='text'
-          name='eventName'
-          value={formState.eventName}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        Start Time:
-        <input
-          type='datetime-local'
-          name='eventStart'
-          value={formState.eventStart}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        End Time:
-        <input
-          type='datetime-local'
-          name='eventEnd'
-          value={formState.eventEnd}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        Event Location:
-        <input
-          type='text'
-          name='eventLocation'
-          value={formState.eventLocation}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        Tickets:
-        <select
-          name='tickets'
-          value={formState.tickets}
-          onChange={handleInputChange}
-        >
-          <option value='Free'>Free</option>
-          <option value='Paid'>Paid</option>
-        </select>
-      </label>
-      <label>
-        Require Approval:
-        <input
-          type='checkbox'
-          name='requireApproval'
-          checked={formState.requireApproval}
-          onChange={handleCheckboxChange}
-        />
-      </label>
-      <label>
-        Capacity:
-        <input
-          type='text'
-          name='capacity'
-          value={formState.capacity}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        Visibility:
-        <select
-          name='visibility'
-          value={formState.visibility}
-          onChange={handleInputChange}
-        >
-          <option value='Public'>Public</option>
-          <option value='Private'>Private</option>
-        </select>
-      </label>
-      <input type='submit' value='Create Event' />
-    </form>
+    <div className='event-form'>
+      <h1 className='form-title'>Create under: Personal Calendar</h1>
+      <div className='form-group'>
+        <label className='form-label'>
+          Event Name
+          <input type='text' className='form-input' />
+        </label>
+        <label className='form-label'>
+          Start
+          <input type='datetime-local' className='form-input' />
+        </label>
+        <label className='form-label'>
+          End
+          <input type='datetime-local' className='form-input' />
+        </label>
+        <label className='form-label'>
+          Add Event Location
+          <input
+            type='text'
+            className='form-input'
+            placeholder='Offline location or virtual link'
+          />
+        </label>
+      </div>
+      <h2 className='form-subtitle'>Event Options</h2>
+      <div className='form-group'>
+        <label className='form-label'>
+          Tickets
+          <select className='form-select'>
+            <option value='free'>Free</option>
+            {/* Add other options as needed */}
+          </select>
+        </label>
+        <label className='form-label'>
+          Require Approval
+          <input type='checkbox' className='form-checkbox' />
+        </label>
+        <label className='form-label'>
+          Capacity
+          <select className='form-select'>
+            <option value='unlimited'>Unlimited</option>
+            {/* Add other options as needed */}
+          </select>
+        </label>
+        <label className='form-label'>
+          Visibility
+          <select className='form-select'>
+            <option value='public'>Public</option>
+            {/* Add other options as needed */}
+          </select>
+        </label>
+      </div>
+      <button className='form-button'>Create Event</button>
+    </div>
   )
 }
 

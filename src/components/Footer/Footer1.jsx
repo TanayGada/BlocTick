@@ -15,7 +15,7 @@ const Footer1 = () => {
         className='divider divider-horizontal'
       ></div>
 
-      <footer className='bg-transparent rounded-lg shadow  dark:bg-gray-800'>
+      <footer style={{paddingTop:'0rem',paddingBottom:'2rem'}} className='bg-transparent rounded-lg  dark:bg-gray-800'>
         <div className='w-full mx-auto max-w-screen-xl p-4 flex items-center justify-between md:flex md:items-center md:justify-between'>
           {/* Logo on the extreme left */}
           <div className='flex items-center'>
