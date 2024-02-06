@@ -1,19 +1,15 @@
 // tailwind.config.js
-module.exports = {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+const withMT = require('@material-tailwind/react/utils/withMT')
+
+module.exports = withMT({
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    'node_modules/rippleui/**/*.js',
+    'node_modules/flowbite-react/lib/esm/**/*.js',
+  ],
   theme: {
     extend: {},
   },
-  plugins: [require('rippleui')],
-}
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    // ...
-    'node_modules/flowbite-react/lib/esm/**/*.js',
-  ],
-  plugins: [
-    // ...
-    require('flowbite/plugin'),
-  ],
-};
+  plugins: [require('rippleui'), require('flowbite/plugin')],
+})

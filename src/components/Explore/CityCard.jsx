@@ -1,12 +1,4 @@
-// import React from 'react'
 
-// const CityCard = () => {
-//   return (
-//     <div>CityCard</div>
-//   )
-// }
-
-// export default CityCard
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';

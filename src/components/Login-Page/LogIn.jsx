@@ -1,24 +1,22 @@
-import { useState, useEffect } from 'react'
-import { useSignup } from '../../hooks/useSignup.jsx'
+import React, { useEffect, useState } from 'react'
+import { useLogin } from '../../hooks/useLogin'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { TextField, Button, Grid, Typography } from '@mui/material'
 import Layout2 from '../../Layout/Layout2'
 import logo from '../../assets/logo2.png'
 
-
-
-const Signup = () => {
+const LogIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { signup, error, isLoading } = useSignup()
+  const { login, error, isLoading } = useLogin()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await signup(email, password)
-     navigate('/events')
+    await login(email, password)
+    navigate('/events')
   }
 
   return (
@@ -75,15 +73,14 @@ const Signup = () => {
               onClick={handleSubmit}
               style={{ marginTop: '1rem', marginLeft: '1rem', width: '78%' }}
             >
-              SignUp
+              Login
             </Button>
-            
-            {error && <div>{error}</div>}
+            <div onClick={()=>navigate('/signup')}>New User? SignUp</div>
+            {/* {error && <div>{error}</div>} */}
           </Grid>
         </form>
       </div>
     </Layout2>
   )
 }
-
-export default Signup
+export default LogIn

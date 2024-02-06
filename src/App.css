@@ -57,10 +57,27 @@
 .main-container {
   width: 60%;
   margin: 0 auto;
+  margin-top: '50px';
 }
 
 @media (max-width: 805px) {
   .main-container {
     width: 95%;
   }
+}
+
+
+/* styles.css */
+.nav-link {
+  text-decoration: none;
+  color: grey;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+.active {
+  color: blue; /* Adjust the color for the active state */
 }

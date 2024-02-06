@@ -1,80 +1,63 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import Past from './Past'
-import Upcoming from './Upcoming'
+import React, { useState } from 'react'
+import Past from './Past/Past'
+import Upcoming from './Upcoming/Upcoming'
+import Layout from '../../Layout/Layout1'
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from '@material-tailwind/react'
 
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props
 
-  return (
-    <div
-      role='tabpanel'
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  )
-}
 
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-}
+const EventsPage = () => {
+  const [activeTab, setActiveTab] = useState('Upcoming')
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  }
-}
-
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0)
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+  const data = [
+    {
+      label: 'Upcoming',
+      value: 'Upcoming',
+    },
+    {
+      label: 'Past',
+      value: 'Past',
+    },
+  ]
 
   return (
-    <Box sx={{ width: '100%'}}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        
-          marginBottom: '10px',
-        }}
-      >
-        <h1 style={{ fontSize: '50px', zIndex: 1, margin: 0 }}>Events</h1>
-
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label='basic tabs example'
+    <Layout>
+      <Tabs value={activeTab} onChange={(newValue) => setActiveTab(newValue)}>
+        <TabsHeader
+          className='bg-transparent'
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
-          <Tab label='Upcoming' {...a11yProps(0)} />
-          <Tab label='Past' {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <CustomTabPanel value={value} index={0}>
-        <Upcoming/>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <Past/>
-      </CustomTabPanel>
-    </Box>
+          <div style={{ fontSize: '3rem' }}>Events</div>
+          <div>
+            {data.map(({ label, value }) => (
+              <Tab key={value} value={value} >
+                {label}
+              </Tab>
+            ))}
+          </div>
+        </TabsHeader>
+
+        <TabsBody>
+       
+          {data.map(({ value }) => (
+            <TabPanel key={value} value={value}>
+              {value === 'Upcoming' ? <Upcoming /> : <Past />}
+            </TabPanel>
+          ))}
+        </TabsBody>
+      </Tabs>
+    </Layout>
   )
 }
+
+export default EventsPage

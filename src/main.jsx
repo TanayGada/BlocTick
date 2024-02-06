@@ -1,45 +1,23 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {RouterProvider, createBrowserRouter} from 'react-router-dom'
+import { createRoot } from 'react-dom/client'
 import App from './App'
-import Events from './components/Events/Events'
-import Calendar from './components/Calendar/Calendar'
-import Explore from './components/Explore/Explore'
-import CreateEvent from './components/Create-Event/createEvent'
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      {
-        path: '',
-        element: <Events />,
-      },
-      {
-        path: 'events',
-        element: <Events />,
-      },
-      {
-        path: 'calendar',
-        element: <Calendar />,
-      },
-      {
-        path: 'explore',
-        element: <Explore />,
-      },
-      {
-        path: 'create-event',
-        element: <CreateEvent/>,
-      },
-    ],
-  },
-])
+// import { GoogleOAuthProvider } from '@react-oauth/google'
+import { UpcomingEventsDataProvider } from './contexts/UpcomingEventsDataContext'
+import { AuthContextProvider } from './contexts/AuthContext'
+import { PastEventsDataProvider } from './contexts/PastEventsDataContext'
+
+const root = createRoot(document.getElementById('root'))
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <AuthContextProvider>
+      <PastEventsDataProvider>
+        <UpcomingEventsDataProvider>
+          <App />
+        </UpcomingEventsDataProvider>
+      </PastEventsDataProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 )
-
-
+  //  <GoogleOAuthProvider clientId='695931706593-v3002vj61lbnoq3jgrniv3383cbekuft.apps.googleusercontent.com'></GoogleOAuthProvider>

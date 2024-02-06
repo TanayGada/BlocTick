@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -10,27 +10,46 @@ import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import logo from '../../assets/logo2.png'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import '../../App.css'
+import { useLogout } from '../../hooks/useLogout'
 
 const pages = ['Events', 'Calendar', 'Explore']
-const settings = ['View Profile', 'Logout']
 
-function ResponsiveAppBar() {
+// function determineTextColor(activeLink, pageName) {
+//   return activeLink === pageName ? 'black' : 'grey'
+// }
+
+
+
+
+const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
-  const [activeLink, setActiveLink] = useState(null)
+  // const [activeLink, setActiveLink] = useState(null)
+  const [top, setTop] = useState(true)
+  const {logout} = useLogout()
+  const navigate = useNavigate()
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget)
+  const handleClick = async() => {
+    await logout();
+    navigate('/')
+  }
+
+  useEffect(() => {
+    const scrollHandler = () => {
+      window.scrollY > 40 ? setTop(false) : setTop(true)
+    }
+    window.addEventListener('scroll', scrollHandler)
+    return () => window.removeEventListener('scroll', scrollHandler)
+  }, [top])
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null)
   }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
-  }
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
   }
 
   const handleCloseUserMenu = () => {
@@ -38,14 +57,14 @@ function ResponsiveAppBar() {
   }
 
   const handleLinkClick = (page) => {
-    setActiveLink(page)
-    handleCloseNavMenu()
+    // setActiveLink(page)
+    handleCloseNavMenu
   }
+
   return (
     <AppBar
       position='fixed'
       sx={{
-        boxSizing: 'border-box',
         top: 0,
         left: 0,
         right: 0,
@@ -55,11 +74,11 @@ function ResponsiveAppBar() {
         padding: '1rem',
         backdropFilter: 'blur(15px)',
         backgroundColor: 'rgba(255, 255, 255, 0)',
-        boxShadow: '0.1 0px 0px rgba(0, 0,0,0)',
-        zIndex: 1000,
+        boxShadow: !top ? '0px 5px 15px rgba(0, 0, 0, 0.1)' : 'none',
+        transition: 'box-shadow 0.3s ease-in-out',
+        zIndex: 100,
         height: '50px',
         paddingBottom: '10px',
-       
       }}
     >
       <Container maxWidth='xl'>
@@ -81,11 +100,11 @@ function ResponsiveAppBar() {
               flexGrow: 1,
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center', // Center content vertically
+              alignItems: 'center',
             }}
           >
             {pages.map((page) => (
-              <Link
+              <NavLink
                 key={page}
                 to={`/${page.toLowerCase()}`}
                 style={{ textDecoration: 'none' }}
@@ -93,11 +112,10 @@ function ResponsiveAppBar() {
                 <Typography
                   key={page}
                   variant='body1'
-                  onClick={() => handleLinkClick(page)}
                   sx={{
                     mx: 2,
                     cursor: 'pointer',
-                    color: activeLink === page ? 'black' : 'grey',
+                    color: 'grey',
                     ':hover': {
                       color: 'black',
                     },
@@ -105,7 +123,7 @@ function ResponsiveAppBar() {
                 >
                   {page}
                 </Typography>
-              </Link>
+              </NavLink>
             ))}
           </Box>
 
@@ -124,11 +142,11 @@ function ResponsiveAppBar() {
             >
               <Typography
                 variant='body1'
-                onClick={handleCloseNavMenu}
+                onClick={() => handleLinkClick('create-event')}
                 sx={{
                   mx: 2,
                   cursor: 'pointer',
-                  color: 'grey',
+                  // color: determineTextColor(activeLink, 'create-event'),
                   ':hover': {
                     color: 'black',
                   },
@@ -161,11 +179,43 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
-                </MenuItem>
-              ))}
+              {/* View Profile */}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <NavLink
+                  to={`/profile`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Typography textAlign='center'>View Profile</Typography>
+                </NavLink>
+              </MenuItem>
+
+              <MenuItem>
+                <NavLink
+                  // to={`/`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Typography textAlign='center' onClick={handleClick} >
+                    Logout
+                  </Typography>
+                </NavLink>
+              </MenuItem>
+
+              {/* <MenuItem onClick={handleCloseUserMenu}>
+                <NavLink
+                  to={`/login`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Typography textAlign='center'>Login</Typography>
+                </NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <NavLink
+                  to={`/signup`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Typography textAlign='center'>SignUp</Typography>
+                </NavLink>
+              </MenuItem> */}
             </Menu>
           </Box>
         </Toolbar>
@@ -174,5 +224,4 @@ function ResponsiveAppBar() {
   )
 }
 
-export default ResponsiveAppBar
-
+export default Navbar

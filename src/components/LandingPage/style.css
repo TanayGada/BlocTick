@@ -1,0 +1,57 @@
+/* @import url("https://fonts.googleapis.com/css?family=Raleway:400");
+
+* {
+	box-sizing: border-box;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 90deg;
+  inherits: true;
+}
+
+
+body {
+	font-family: Raleway, sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 1rem;
+	background-color: rgba(10, 12, 18, 1);
+	color: white;
+	min-height: 100vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+p {
+	margin: 0;
+}
+
+:root {
+	--angle: 90deg;	
+}
+
+
+.box {
+	font-size: 3vw;
+	margin: max(1rem, 3vw);
+	border: 0.35rem solid;
+	padding: 3vw;
+	border-image: conic-gradient(
+      from var(--angle),
+      rgba(168, 239, 255, 0.1),
+      rgba(168, 239, 255, 1) 0.1turn,
+      rgba(168, 239, 255, 1) 0.15turn,
+      rgba(168, 239, 255, 0.1) 0.25turn
+    )
+    30;animation: borderRotate 2.5s linear infinite forwards;
+}
+
+
+@keyframes borderRotate {
+	100% {
+		--angle: 420deg;
+	}
+} */
