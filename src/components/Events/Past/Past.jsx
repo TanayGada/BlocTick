@@ -36,15 +36,16 @@ const Past = () => {
   }, [dispatch, user])
 
   return (
-    <div style={{ marginLeft: '1rem' }}>
-      {loading ? (
-        console.log('Loading')
-      ) : PastEventsData != null ? (
-        <EventPresent events={PastEventsData} />
-      ) : (
-        <EventAbsent />
-      )}
-    </div>
+    // <div style={{ marginLeft: '1rem' }}>
+    //   {loading ? (
+    //     console.log('Loading')
+    //   ) : PastEventsData != null ? (
+    //     <EventPresent events={PastEventsData} />
+    //   ) : (
+    //     <EventAbsent />
+    //   )}
+    // </div>
+    <h1>Past</h1>
   )
 }
 

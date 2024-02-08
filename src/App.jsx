@@ -10,7 +10,6 @@ import Signup from './components/Login-Page/SignUp'
 import LogIn from './components/Login-Page/LogIn'
 import LandingPage from './components/LandingPage/Landing'
 
-
 // import { useState } from 'react'
 // import { WagmiProvider } from 'wagmi'
 // import { config } from '../src/config'

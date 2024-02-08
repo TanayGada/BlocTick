@@ -1,3 +1,4 @@
+export const abi = 
 [
   {
     "anonymous": false,
@@ -263,7 +264,7 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "name", "type": "string" },
+      { "internalType": "string", "name": "name", "type": "string" },          //eventname
       { "internalType": "string[]", "name": "ticketsType", "type": "string[]" },
       {
         "internalType": "uint256[]",
@@ -308,8 +309,8 @@
     "inputs": [{ "internalType": "string", "name": "name", "type": "string" }],
     "name": "customerInfo",
     "outputs": [
-      { "internalType": "string[]", "name": "", "type": "string[]" },
-      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+      { "internalType": "string[]", "name": "", "type": "string[]" },     //ticketType
+      { "internalType": "uint256[]", "name": "", "type": "uint256[]" }    //ticketCount
     ],
     "stateMutability": "view",
     "type": "function"
@@ -411,4 +412,5 @@
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]
+] as const;
+

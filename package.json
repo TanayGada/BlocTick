@@ -39,7 +39,7 @@
     "react-router-dom": "^6.21.3",
     "rippleui": "^1.12.1",
     "styled-components": "^6.1.8",
-    "viem": "^2.7.3",
+    "viem": "^2.7.6",
     "wagmi": "^2.5.5"
   },
   "devDependencies": {

@@ -3,6 +3,24 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Layout from '../../Layout/Layout1'
 import { useAuthContext } from '../../hooks/useAuthContext'
+import { useWriteContract } from 'wagmi'
+import { config } from '../../config'
+import { abi } from '../../abi'
+import { Deposit } from '../../blockchain/Functions/WriteFunctions/Deposit'
+import { Account } from '../../blockchain/Functions/ReadFunctions/Account'
+import { WalletOptions } from '../../blockchain/Functions/ReadFunctions/wallet-options'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ConnectWallet } from '../../main'
+import { CheckBalance } from '../../blockchain/Functions/ReadFunctions/CheckBalance'
+import { CreateEvent } from '../../blockchain/Functions/WriteFunctions/CreateEvent'
+
+
+// const queryClient = new QueryClient()
+// function ConnectWallet() {
+//   const { isConnected } = Account()
+//   if (isConnected) return <Account />
+//   return <WalletOptions />
+// }
 
 const CreateEventPage = () => {
   const [eventName, setEventName] = useState('')
@@ -16,20 +34,17 @@ const CreateEventPage = () => {
   const [visibility, setVisibility] = useState('public')
   const [eventDescription, setEventDescription] = useState('')
   const [isEventCreated, setIsEventCreated] = useState(false)
-  const {user} = useAuthContext()
+  const { user } = useAuthContext()
 
   const navigate = useNavigate()
   const handleSubmit = (e) => {
-    e.preventDefault() 
-    handleCreateEvent() 
+    e.preventDefault()
+    handleCreateEvent()
   }
 
-
   const handleCreateEvent = async (e) => {
-    
     try {
-      
-      if(!user){
+      if (!user) {
         console.log('User not logged in')
         return
       }
@@ -42,8 +57,7 @@ const CreateEventPage = () => {
         !endDateTime ||
         !eventLocation ||
         !eventTicketsCount ||
-        !eventDescription 
-        
+        !eventDescription
       ) {
         console.error('Please fill in all required fields.')
         return
@@ -54,59 +68,27 @@ const CreateEventPage = () => {
         return
       }
       // ticket count is a positive integer
-      if (eventTicketsCount <= 0 ) {
+      if (eventTicketsCount <= 0) {
         console.error('Please enter a valid tickets count.')
         return
       }
+      var myDate = new Date(startDateTime);
+      var myEpoch = myDate.getTime()/1000.0;
       // Data to be sent to the backend
       const eventData = {
         eventName,
-        startDateTime,
-        endDateTime,
-        eventLocation,
-        eventTicketType,
+        myEpoch,
+        // endDateTime,
+        // eventLocation,
+        // eventTicketType,
         eventTicketPrice,
-        requireApproval,
+        // requireApproval,
         eventTicketsCount,
-        visibility,
-        eventDescription,
-        
-      } 
+        // visibility,
+        // eventDescription,
+      }
 
-
-//       const create = await writeContract(config, {
-//         abi,
-//         address: '0x813a632A0dE5f0B56CD7Cfc6fbEA3Cc626Ee3451',
-//         functionName: 'createEvent',
-//         args: [
-//           'name',
-//           utils.arrayify(price),
-//           utils.arrayify(tickets),
-//           utils.arrayify(seatType),
-//           date,
-//         ],
-//         value: '',
-//         account: '',
-//       })
-
-
-//         const { data: output } = useReadContract({
-//     config,
-//     abi,
-//     address: "0x813a632A0dE5f0B56CD7Cfc6fbEA3Cc626Ee3451",
-//     functionName: "CustomerInfo",
-//     args: ["type", "count"],
-//     account: "0x626c4F102704aB03fcf55a129F2d677d7F740d7e", //our address
-//   });
-    
-//   return <div>ticketCount: {output?.toString()}</div>;
-// }
-
-
-
-
-
-
+      CreateEvent({eventName , eventTicketsCount, myEpoch})
 
       // Send data to backend
       const response = await fetch('/events', {
@@ -114,7 +96,7 @@ const CreateEventPage = () => {
         body: JSON.stringify(eventData),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       })
 
@@ -126,20 +108,25 @@ const CreateEventPage = () => {
       console.log('Error creating event:', error)
     }
   }
-  
 
   return (
+    // <WagmiProvider config={config}>
+    //     <QueryClientProvider client={queryClient}>
     <Layout>
-      <div className='bg-gray-100 min-h-screen flex items-center justify-center'>
+      <div className='bg-gray-1000 min-h-screen flex items-center justify-center'>
         <div
-          className='max-w-3xl bg-white rounded-lg shadow-xl p-8 sm:p-5'
-          style={{ width: '70%' }}
+          className='max-w-3xl rounded-lg shadow-xl p-8 sm:p-5'
+          style={{
+            width: '70%',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          }}
         >
-          <h1 className='text-4xl font-bold text-gray-800 mb-6 sm:text-2xl'>
+          <h1 className='text-4xl font-bold text-gray-800 mb-6 sm:text-2xl text-center'>
             Create Event
           </h1>
           <form className='space-y-6'>
-            <div className='space-y-4'>
+            <div className='space-y-4 px-2'>
               <div>
                 <label
                   htmlFor='event-name'
@@ -150,14 +137,14 @@ const CreateEventPage = () => {
                 <input
                   id='event-name'
                   type='text'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='input'
                   value={eventName}
                   onChange={(e) => setEventName(e.target.value)}
                   required
                   placeholder='Enter Event Name'
                 />
               </div>
-              <div className='flex sm:flex-col space-y-4'>
+              <div>
                 <div>
                   <label
                     htmlFor='start-date-time'
@@ -168,7 +155,7 @@ const CreateEventPage = () => {
                   <input
                     id='start-date-time'
                     type='datetime-local'
-                    className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                    className='input'
                     value={startDateTime}
                     onChange={(e) => setStartDateTime(e.target.value)}
                     required
@@ -184,7 +171,7 @@ const CreateEventPage = () => {
                   <input
                     id='end-date-time'
                     type='datetime-local'
-                    className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                    className='input'
                     value={endDateTime}
                     onChange={(e) => setEndDateTime(e.target.value)}
                     min={startDateTime}
@@ -203,7 +190,7 @@ const CreateEventPage = () => {
                 <input
                   id='event-location'
                   type='text'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='input'
                   value={eventLocation}
                   onChange={(e) => setEventLocation(e.target.value)}
                   required
@@ -226,6 +213,7 @@ const CreateEventPage = () => {
                       value='free'
                       checked={eventTicketType === 'free'}
                       onChange={(e) => setEventTicketType(e.target.value)}
+                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                     />
                     <label
                       htmlFor='ticket-type-free'
@@ -243,6 +231,7 @@ const CreateEventPage = () => {
                       value='paid'
                       checked={eventTicketType === 'paid'}
                       onChange={(e) => setEventTicketType(e.target.value)}
+                      style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                     />
                     <label
                       htmlFor='ticket-type-paid'
@@ -264,7 +253,7 @@ const CreateEventPage = () => {
                   <input
                     id='ticket-price'
                     type='number'
-                    className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                    className='input'
                     value={eventTicketPrice}
                     onChange={(e) => setEventTicketPrice(e.target.value)}
                     min={1}
@@ -286,6 +275,7 @@ const CreateEventPage = () => {
                   className=' ml-4 focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded'
                   value={requireApproval}
                   onChange={(e) => setRequireApproval(e.target.checked)}
+                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
                 />
               </div>
               <div>
@@ -298,7 +288,7 @@ const CreateEventPage = () => {
                 <input
                   id='tickets-count'
                   type='number'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='input'
                   value={eventTicketsCount}
                   onChange={(e) => setEventTicketsCount(e.target.value)}
                   min={1}
@@ -315,7 +305,7 @@ const CreateEventPage = () => {
                 </label>
                 <select
                   id='visibility'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='input'
                   value={visibility}
                   onChange={(e) => setVisibility(e.target.value)}
                 >
@@ -326,16 +316,13 @@ const CreateEventPage = () => {
             </div>
             <div className='space-y-4'>
               <div>
-                <label
-                  htmlFor='event-description'
-                  className='block text-sm font-medium text-gray-700'
-                >
+                <label className='block text-sm font-medium text-gray-700'>
                   Event Description
                 </label>
                 <textarea
                   id='event-description'
-                  className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                  rows={5}
+                  className='input'
+                  rows={2}
                   placeholder='Write a brief summary of your event'
                   value={eventDescription}
                   onChange={(e) => setEventDescription(e.target.value)}
@@ -352,10 +339,27 @@ const CreateEventPage = () => {
                 Create Event
               </button>
             </div>
+
+            {/* <button
+                type='submit'
+                className='bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500'
+                style={{ width: '100%' }}
+                onClick={handleDeposit}
+              >
+                Deposit
+              </button> */}
           </form>
+          <div>
+            <Deposit />
+            <ConnectWallet />
+            <CheckBalance />
+            <Account />
+          </div>
         </div>
       </div>
     </Layout>
+    // </QueryClientProvider>
+    // </WagmiProvider>
   )
 }
 

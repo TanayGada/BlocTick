@@ -37,15 +37,16 @@ const Upcoming = () => {
   }, [dispatch, user])
 
   return (
-    <div style={{ marginLeft: '1rem' }}>
-      {loading ? (
-        console.log('Loading')
-      ) : upcomingEventsData != null ? (
-        <EventPresent events={upcomingEventsData} />
-      ) : (
-        <EventAbsent />
-      )}
-    </div>
+    // <div style={{ marginLeft: '1rem' }}>
+    //   {loading ? (
+    //     console.log('Loading')
+    //   ) : upcomingEventsData != null ? (
+    //     <EventPresent events={upcomingEventsData} />
+    //   ) : (
+    //     <EventAbsent />
+    //   )}
+    // </div>
+    <h1>Upcoming</h1>
   )
 }
 
