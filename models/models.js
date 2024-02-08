@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const eventSchema = new mongoose.Schema({
+const eventSchema = new Schema({
     eventName : {
         type : String,
         required : true
@@ -13,47 +14,43 @@ const eventSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    eventDate : {
+    eventStartDate : {
         type : Date,
-        requried : true
+        required : true
+    },
+    eventEndDate : {
+        type : Date,
+        required : true
     },
     eventDuration :{
-        type : Date,
+        type : Number,
         required : true
     },
     eventLocation : {
         type : String,
         required : true
     },
-    eventTicketsType : {
-        type : [String],
-        required : true
-    },
     eventTicketsCount : {
         type : [Number],
-        reuired : true
+        required : true
     },
     eventTicketsPrice : {
         type : [Number],
         required : true
     }
-});
+},{timestamps : true});  //timestamps : true will automatically add createdAt and updatedAt fields to the schema
 
 const Events = new mongoose.model("event",eventSchema);
 
 //For Customers
-const showTicket = new mongoose.Schema({
-    ticketType : {
-        type : [String],
-        required : true
-    },
+const showTicket = new Schema({
     ticketCount : {
         type : [Number],
         required : true
     }
 },{ _id: false });
 
-const ticketSchema = new mongoose.Schema({
+const ticketSchema = new Schema({
     showsName : {
         type : String
     },
@@ -66,7 +63,7 @@ const ticketSchema = new mongoose.Schema({
     },
 },{ _id: false });
 
-const customersSchema = mongoose.Schema({
+const customersSchema = Schema({
     name : {
         type : String,
         required : true

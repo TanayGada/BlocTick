@@ -1,86 +1,111 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+const cors = require('cors')
+const eventsRouter = require('./routes/events')
+const customersRouter = require('./routes/customers')
+const userRoutes = require('./routes/user')
+const app = express()
 require('./auth');
 
-mongoose.connect("mongodb://localhost:27017/BlocTik")
-.then(() => {
-    console.log("The local database has started");
-})
-.catch((err) => {
-    console.log(err);
-});
 
-const PORT = 5000;
-const app = express();
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+)
+
+
+const MONGO_URI = process.env.MONGO_URI;
+const PORT = process.env.PORT
+
+mongoose.connect(MONGO_URI)
+  .then(() => {
+
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`)
+    })
+    
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+
 
 app.use(morgan('tiny'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-function isAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect('/failed');
-}
 
-// Setting up express-session middleware
-app.use(session({
-  secret: 'ANISH',
-  resave: true,
-  saveUninitialized: true
-}));
+app.use('/customers', customersRouter)
 
-// Initializing Passport and restoring authentication state, if any, from the session
-app.use(passport.initialize());
-app.use(passport.session());
+app.use('/events', eventsRouter)
+app.use('/user', userRoutes)
 
-app.get('/auth/google',
-  passport.authenticate('google', { scope: [ 'email', 'profile' ] }
-));
 
-app.get( '/auth/google/callback',
-  passport.authenticate( 'google', {
-    successRedirect: '/passed',
-    failureRedirect: '/failed'
-  })
-);
+// function isAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) {
+//       return next();
+//     }
+//     res.redirect('/failed');
+// }
+
+// // Setting up express-session middleware
+// app.use(session({
+//   secret: 'ANISH',
+//   resave: true,
+//   saveUninitialized: true
+// }));
+
+// // Initializing Passport and restoring authentication state, if any, from the session
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope: [ 'email', 'profile' ] }
+// ));
+
+// app.get( '/auth/google/callback',
+//   passport.authenticate( 'google', {
+//     successRedirect: '/passed',
+//     failureRedirect: '/failed'
+//   })
+// );
   
-app.get('/logout', (req, res) => {
-    req.logout(err => {
-        if (err) {
-            return res.status(500).json({ error: 'Error during logout' });
-        }
-        req.session.destroy();
-        res.send('Goodbye!');
-    });
-});
+// app.get('/logout', (req, res) => {
+//     req.logout(err => {
+//         if (err) {
+//             return res.status(500).json({ error: 'Error during logout' });
+//         }
+//         req.session.destroy();
+//         res.send('Goodbye!');
+//     });
+// });
 
-app.get('/', (req, res) => {
-//   res.status(200).json({ success: true, data: {} });
-    // res.render("<a href='auth/google'>")
-    res.redirect('/auth/google');      
-});
+// app.get('/', (req, res) => {
+// //   res.status(200).json({ success: true, data: {} });
+//     // res.render("<a href='auth/google'>")
+       
+// });
 
-app.get('/failed', (req, res) => {
-  res.status(401).json({ success: true, data: "You are not authenticated" });
-});
+// app.get('/failed', (req, res) => {
+//   res.status(401).json({ success: true, data: "You are not authenticated" });
+// });
 
-app.get('/passed', (req, res) => {
-  res.status(200).json({ success: true, data: "You are authenticated" });
-});
+// app.post('/', (req, res) => {
+//   // res.status(401).json({ success: true, data: 'You are not authenticated' })
+//   console.log(req.body)
+// })
 
-app.use('/customers/*', isAuthenticated);
-const customersRouter = require('./routes/customers');
-app.use('/customers', customersRouter);
+// app.get('/passed', (req, res) => {
+//   res.status(200).json({ success: true, data: "You are authenticated" });
+// });
 
-const eventsRouter = require('./routes/events');
-app.use('/events', eventsRouter);
+// app.use('/customers/*', isAuthenticated);
 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
