@@ -9,6 +9,7 @@ import ExplorePage from './components/Explore/Explore'
 import Signup from './components/Login-Page/SignUp'
 import LogIn from './components/Login-Page/LogIn'
 import LandingPage from './components/LandingPage/Landing'
+import Profile from './components/ProfilePage/Profile'
 
 // import { useState } from 'react'
 // import { WagmiProvider } from 'wagmi'
@@ -64,8 +65,19 @@ const App = () => {
           path='/create-event'
           element={user ? <CreateEventPage /> : <Navigate to='/login' />}
         />
-        <Route path='/login' element={!user? <LogIn /> : <Navigate to='/events'/>} />
-        <Route path='/signup' element={!user? <Signup />: <Navigate to='/events'/>} />
+        <Route
+          path='/profile'
+          element={user ? <Profile
+           /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/login'
+          element={!user ? <LogIn /> : <Navigate to='/events' />}
+        />
+        <Route
+          path='/signup'
+          element={!user ? <Signup /> : <Navigate to='/events' />}
+        />
       </Routes>
     </Router>
   )

@@ -13,11 +13,7 @@ import { WalletOptions } from './blockchain/Functions/ReadFunctions/wallet-optio
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
-export function ConnectWallet() {
-  const { isConnected } = Account()
-  if (isConnected) return <Account />
-  return <WalletOptions />
-}
+
 
 const root = createRoot(document.getElementById('root'))
 

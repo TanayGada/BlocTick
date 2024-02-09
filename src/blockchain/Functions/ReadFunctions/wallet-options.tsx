@@ -6,7 +6,8 @@ export function WalletOptions() {
 
   return connectors.map((connector) => (
     <button key={connector.uid} onClick={() => connect({ connector })}>
-      {connector.name}
+      <div
+      style={{padding:'1rem',margin:'1rem', backgroundColor:'green', borderRadius:'1rem'}}>{connector.name}</div>
     </button>
   ))
 }
