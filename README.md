@@ -1,7 +1,7 @@
 ## 📝Description
 
   
-Introducing BlockTick: The Future of Event Ticketing
+ <h1>BlockTick</h1> The Future of Event Ticketing
 
 - *Interactive GUI*: Streamlined experience for organizers and attendees alike.
 - *Blockchain-Powered*: Ensures fairness and transparency.
