@@ -44,7 +44,7 @@ You can use icons too - find them [here](https://github.com/get-icon/geticon)
 
 List down all the fully implemented features in your project
 
-- [x]  Successfully implement authentication
+- [x]  Successfully implemented authentication
 - [x]  Successfully created a smart contract, deployed and tested it.
 - [x]  Proper fetching of data with the database
 - [x] Succesfully connected users with metamask wallet for transactions
@@ -64,8 +64,8 @@ List down all the future plans for the project here
 
 ## [](https://github.com/CommunityOfCoders/Inheritance-2023/blob/main/sample_readme.md#applications)💸Applications
 
-> How can your project do its part in solving a real-life problem? What are its possible applications? Can it be monetized? Describe her
-> It 
+> A blockchain-based ticketing system can address real-world problems in the ticketing industry by preventing fraud and counterfeiting, ensuring transparency, decentralizing control, providing secure and auditable transactions, using smart contracts for automation, enhancing data privacy, managing resale securely, improving user experience, and enabling interoperability between different platforms. This technology enhances the integrity and efficiency of ticketing processes while reducing risks and enhancing user control.
+
 ## [](https://github.com/CommunityOfCoders/Inheritance-2023/blob/main/sample_readme.md#project-setup)🛠Project Setup
 
 > Include your project setup basics here. Steps for how someone else can setup your project on their machine. Add any relevant details as well.
