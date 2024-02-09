@@ -18,10 +18,10 @@ import {useAccount} from 'wagmi'
 
 const CreateEventPage = () => {
   const [eventName, setEventName] = useState('')
-  const [startDateTime, setStartDateTime] = useState('')
-  const [endDateTime, setEndDateTime] = useState('')
+  const [eventStartDate, setEventStartDate] = useState('')
+  const [eventEndDate, setEventEndDate] = useState('')
   const [eventLocation, setEventLocation] = useState('')
-  const [eventTicketPrice, setEventTicketPrice] = useState('')
+  const [eventTicketsPrice, seteventTicketsPrice] = useState('')
   const [eventTicketsCount, setEventTicketsCount] = useState('')
   const [eventDescription, setEventDescription] = useState('')
   const [isEventCreated, setIsEventCreated] = useState(false)
@@ -44,11 +44,12 @@ const CreateEventPage = () => {
       // Validate that all required fields are filled
       if (
         !eventName ||
-        !startDateTime ||
-        !endDateTime ||
+        !eventStartDate ||
+        !eventEndDate ||
         !eventLocation ||
         !eventTicketsCount ||
-        !eventDescription
+        !eventDescription ||
+        !eventTicketsPrice
       ) {
         console.error('Please fill in all required fields.')
         return
@@ -60,23 +61,28 @@ const CreateEventPage = () => {
         console.error('Please enter a valid tickets count.')
         return
       }
-      var myDate = new Date(startDateTime);
+      var eventOrganizerEmailId = user.email
+      var myDate = new Date(eventStartDate);
       var myEpoch = myDate.getTime()/1000.0;
       // Data to be sent to the backend
       const eventData = {
         eventName,
-        myEpoch,
-        // endDateTime,
-        // eventLocation,
-        eventTicketPrice,
+        eventOrganizerEmailId,
+        // myEpoch,
+        eventStartDate,
+        eventEndDate,
+        eventLocation,
         eventTicketsCount,
-        // eventDescription,
+        eventTicketsPrice,
+        eventDescription
       }
+      console.log('Event Data:', eventData)
 
-      await CreateEvent({eventName , eventTicketsCount, myEpoch})
+
+      await CreateEvent({eventName ,eventTicketsPrice, eventTicketsCount, myEpoch})
 
       // Send data to backend
-      const response = await fetch('/events', {
+      const response = await fetch('http://localhost:5001/events/', {
         method: 'POST',
         body: JSON.stringify(eventData),
         headers: {
@@ -87,7 +93,7 @@ const CreateEventPage = () => {
 
       console.log('Event created successfully:', response.data)
       setIsEventCreated(true)
-      navigate('/events')
+      await navigate('/events')
     } catch (error) {
       // Handle errors
       console.log('Error creating event:', error)
@@ -148,8 +154,8 @@ const CreateEventPage = () => {
                     id='start-date-time'
                     type='datetime-local'
                     className='input'
-                    value={startDateTime}
-                    onChange={(e) => setStartDateTime(e.target.value)}
+                    value={eventStartDate}
+                    onChange={(e) => setEventStartDate(e.target.value)}
                     required
                   />
                 </div>
@@ -164,10 +170,10 @@ const CreateEventPage = () => {
                     id='end-date-time'
                     type='datetime-local'
                     className='input'
-                    value={endDateTime}
-                    onChange={(e) => setEndDateTime(e.target.value)}
-                    min={startDateTime}
-                    disabled={!startDateTime}
+                    value={eventEndDate}
+                    onChange={(e) => setEventEndDate(e.target.value)}
+                    min={eventStartDate}
+                    disabled={!eventStartDate}
                     required
                   />
                 </div>
@@ -200,8 +206,8 @@ const CreateEventPage = () => {
                   id='ticket-price'
                   type='number'
                   className='input'
-                  value={eventTicketPrice}
-                  onChange={(e) => setEventTicketPrice(e.target.value)}
+                  value={eventTicketsPrice}
+                  onChange={(e) => seteventTicketsPrice(e.target.value)}
                   min={1}
                   required
                   placeholder='Enter the price per ticket '

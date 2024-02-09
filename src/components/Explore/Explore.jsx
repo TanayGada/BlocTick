@@ -8,7 +8,6 @@ const ExplorePage = () => {
   return (
     <Layout>
       <Stack style={{ borderTop: '10px' }}>
-      
         <div
           className=' zm-container text-emerald-100  font-sans'
           sx={{ opacity: 1 }}
@@ -20,13 +19,11 @@ const ExplorePage = () => {
             <h1>Explore Events</h1>
           </div>
           <div className=' zm-container  text-secondary-alpha pt-2 pb-4 mb-2'>
-            Every week, we feature some of the most popular tech events in
-            cities like San Francisco and New York. In addition, you can check
-            out and subscribe to some great calendars from the community.
+            Every week, we feature some of the most popular online events and
+            offline events in Mumbai.
           </div>
         </div>
 
-        {/* citycards */}
         <div style={{ margin: '10px 0px 10px 0px' }}>
           <div className=' text-emerald-100  font-sans font-bold m-2'>
             <h1 className='text-xl'>Popular Events</h1>
@@ -35,14 +32,17 @@ const ExplorePage = () => {
 
           <Grid
             container
-            spacing={{ xs: 2, md: 2 }}
-            columns={{ xs: 2, sm: 8, md: 12 }}
+            spacing={{ xs: 2, md: 4 }}
+            columns={{ xs: 1, sm: 3, md: 3 }} 
+            alignItems='center'
+            justifyContent='center'
           >
-            {Array.from(Array(6)).map((_, index) => (
-              <Grid xs={2} sm={4} md={4} key={index}>
-                <CityCard />
-              </Grid>
-            ))}
+            <CityCard name='Mumbai' image='./mumbai.jpg' />
+            <CityCard name='Pune' image='./pune.jpg' />
+            <CityCard name='Bangalore' image='./bangalore.jpg' />
+            <CityCard name='Chennai' image='./chennai.jpg' />
+            <CityCard name='Delhi' image='./delhi.jpg' />
+            <CityCard name='Jaipur' image='./jaipur.jpg' />
           </Grid>
         </div>
 

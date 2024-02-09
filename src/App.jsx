@@ -10,38 +10,17 @@ import Signup from './components/Login-Page/SignUp'
 import LogIn from './components/Login-Page/LogIn'
 import LandingPage from './components/LandingPage/Landing'
 import Profile from './components/ProfilePage/Profile'
-
-// import { useState } from 'react'
-// import { WagmiProvider } from 'wagmi'
-// import { config } from '../src/config'
-// import { Account } from './blockchain/account'
-// import { WalletOptions } from './blockchain/wallet-options'
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-
-// const queryClient = new QueryClient()
-
-// function ConnectWallet() {
-//   const { isConnected } = Account()
-//   if (isConnected) return <Account />
-//   return <WalletOptions />
-// }
-
-
+import Bangalore from './components/Explore/CitiesPage/Bangalore'
+import Chennai from './components/Explore/CitiesPage/Chennai'
+import Delhi from './components/Explore/CitiesPage/Delhi'
+import Pune from './components/Explore/CitiesPage/Pune'
+import Jaipur from './components/Explore/CitiesPage/Jaipur'
+import Mumbai from './components/Explore/CitiesPage/Mumbai'
 
 const App = () => {
 
   const {user} = useAuthContext()
   return (
-    // <WagmiProvider config={config}>
-    //   <QueryClientProvider client={queryClient}>
-
-    //     <div className='card'>
-    //       <ConnectWallet />
-
-    //     </div>
-    //   </QueryClientProvider>
-    // </WagmiProvider>
 
     <Router>
       <Routes>
@@ -67,8 +46,7 @@ const App = () => {
         />
         <Route
           path='/profile'
-          element={user ? <Profile
-           /> : <Navigate to='/login' />}
+          element={user ? <Profile /> : <Navigate to='/login' />}
         />
         <Route
           path='/login'
@@ -78,6 +56,31 @@ const App = () => {
           path='/signup'
           element={!user ? <Signup /> : <Navigate to='/events' />}
         />
+        <Route
+          path='/explore/mumbai'
+          element={user ? <Mumbai /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/explore/bangalore'
+          element={user ? <Bangalore /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/explore/chennai'
+          element={user ? <Chennai /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/explore/delhi'
+          element={user ? <Delhi /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/explore/pune'
+          element={user ? <Pune /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/explore/jaipur'
+          element={user ? <Jaipur /> : <Navigate to='/login' />}
+        />
+       
       </Routes>
     </Router>
   )
