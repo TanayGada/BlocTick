@@ -16,12 +16,14 @@ import Delhi from './components/Explore/CitiesPage/Delhi'
 import Pune from './components/Explore/CitiesPage/Pune'
 import Jaipur from './components/Explore/CitiesPage/Jaipur'
 import Mumbai from './components/Explore/CitiesPage/Mumbai'
+import ManageEvent from './components/Manage-Event/ManageEvent'
+import Registration from './components/Manage-Event/Registration'
+import Guests from './components/Manage-Event/Guests'
 
 const App = () => {
 
   const {user} = useAuthContext()
   return (
-
     <Router>
       <Routes>
         <Route
@@ -80,7 +82,18 @@ const App = () => {
           path='/explore/jaipur'
           element={user ? <Jaipur /> : <Navigate to='/login' />}
         />
-       
+        <Route
+          path='/manageevent/overview'
+          element={user ? <ManageEvent/> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/manageevent/registration'
+          element={user ? <Registration/> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/manageevent/guests'
+          element={user ? <Guests/> : <Navigate to='/login' />}
+        />
       </Routes>
     </Router>
   )

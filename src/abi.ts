@@ -1,5 +1,5 @@
 export const abi = [
-  [
+  
     {
       anonymous: false,
       inputs: [
@@ -345,6 +345,6 @@ export const abi = [
       stateMutability: 'nonpayable',
       type: 'function',
     },
-  ],
+
 ] as const
 

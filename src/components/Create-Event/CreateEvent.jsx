@@ -24,6 +24,7 @@ const CreateEventPage = () => {
   const [eventTicketsPrice, seteventTicketsPrice] = useState('')
   const [eventTicketsCount, setEventTicketsCount] = useState('')
   const [eventDescription, setEventDescription] = useState('')
+  const [eventCity, setEventCity] = useState('')
   const [isEventCreated, setIsEventCreated] = useState(false)
   const { user } = useAuthContext()
 
@@ -49,7 +50,8 @@ const CreateEventPage = () => {
         !eventLocation ||
         !eventTicketsCount ||
         !eventDescription ||
-        !eventTicketsPrice
+        !eventTicketsPrice||
+        !eventCity
       ) {
         console.error('Please fill in all required fields.')
         return
@@ -72,6 +74,7 @@ const CreateEventPage = () => {
         eventStartDate,
         eventEndDate,
         eventLocation,
+        eventCity,
         eventTicketsCount,
         eventTicketsPrice,
         eventDescription
@@ -113,13 +116,24 @@ const CreateEventPage = () => {
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
           }}
         >
-          
-          {!address? <div><div className='text-center text-red-500'>Please complete your profile to create an event</div>
-          <button onClick={()=>{
-            navigate('/profile')
-          }}>Profile</button></div> : <h1 className='text-4xl font-bold text-gray-800 mb-6 sm:text-2xl text-center'>
-            Create Event
-          </h1>}
+          {!address ? (
+            <div>
+              <div className='text-center text-red-500'>
+                Please complete your profile to create an event
+              </div>
+              <button
+                onClick={() => {
+                  navigate('/profile')
+                }}
+              >
+                Profile
+              </button>
+            </div>
+          ) : (
+            <h1 className='text-4xl font-bold text-gray-800 mb-6 sm:text-2xl text-center'>
+              Create Event
+            </h1>
+          )}
           <form className='space-y-6'>
             <div
               className='space-y-4 px-2'
@@ -192,9 +206,34 @@ const CreateEventPage = () => {
                   value={eventLocation}
                   onChange={(e) => setEventLocation(e.target.value)}
                   required
-                  placeholder='Offline location or virtual link'
+                  placeholder='Enter Event Location'
                 />
               </div>
+              <div>
+                <label
+                  htmlFor='City Name'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  City Name
+                </label>
+                <select
+                  id='visibility'
+                  className='input'
+                  value={eventCity}
+                  onChange={(e) => setEventCity(e.target.value)}
+                >
+                  <option value='' disabled >
+                    Select City
+                  </option>
+                  <option value='Mumbai'>Mumbai</option>
+                  <option value='Delhi'>Delhi</option>
+                  <option value='Bangalore'>Bangalore</option>
+                  <option value='Pune'>Pune</option>
+                  <option value='Chennai'>Chennai</option>
+                  <option value='Jaipur'>Jaipur</option>
+                </select>
+              </div>
+
               <div>
                 <label
                   htmlFor='ticket-price'
@@ -229,7 +268,7 @@ const CreateEventPage = () => {
                   onChange={(e) => setEventTicketsCount(e.target.value)}
                   min={1}
                   required
-                  placeholder='Enter the maximum number of tickets available'
+                  placeholder='Enter maximum Capacity '
                 />
               </div>
 
@@ -248,10 +287,6 @@ const CreateEventPage = () => {
                   ></textarea>
                 </div>
               </div>
-              
-               
-          
-                
 
               <div className='flex justify-end'>
                 <button
@@ -265,7 +300,6 @@ const CreateEventPage = () => {
               </div>
             </div>
           </form>
-         
         </div>
       </div>
     </Layout>
