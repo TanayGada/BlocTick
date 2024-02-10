@@ -84,16 +84,17 @@ const App = () => {
         />
         <Route
           path='/manageevent/overview'
-          element={user ? <ManageEvent/> : <Navigate to='/login' />}
+          element={user ? <ManageEvent /> : <Navigate to='/login' />}
         />
         <Route
           path='/manageevent/registration'
-          element={user ? <Registration/> : <Navigate to='/login' />}
+          element={user ? <Registration /> : <Navigate to='/login' />}
         />
         <Route
           path='/manageevent/guests'
-          element={user ? <Guests/> : <Navigate to='/login' />}
+          element={user ? <Guests /> : <Navigate to='/login' />}
         />
+        
       </Routes>
     </Router>
   )

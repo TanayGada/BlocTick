@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import { CardContent, Typography } from '@mui/material'
 import {Button,CardActionArea,CardActions} from '@mui/material'
 import EmailIcon from "@mui/icons-material/Email";
-const SubscribeCard = () => {
+const WeeklyEmail = () => {
   return (
     <>
       <Card
@@ -35,4 +35,4 @@ const SubscribeCard = () => {
   );
 }
 
-export default SubscribeCard
+export default WeeklyEmail

@@ -14,11 +14,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import '../../App.css'
 import { useLogout } from '../../hooks/useLogout'
 
-const pages = ['Events', 'Calendar', 'Explore' ]
-
-// function determineTextColor(activeLink, pageName) {
-//   return activeLink === pageName ? 'black' : 'grey'
-// }
+const pages = ['Events', 'Calendar', 'Explore']
 
 
 

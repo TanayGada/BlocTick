@@ -1,4 +1,4 @@
-import {Box,Stack} from '@mui/material'
+import {Stack} from '@mui/material'
 import Grid from "@mui/material/Unstable_Grid2"; 
 import CityCard from './CityCard'
 import SubscribeCards from './SubscribeCards';
@@ -33,10 +33,11 @@ const ExplorePage = () => {
           <Grid
             container
             spacing={{ xs: 2, md: 4 }}
-            columns={{ xs: 1, sm: 3, md: 3 }} 
+            columns={{ xs: 1, sm: 1, md: 3 }} 
             alignItems='center'
             justifyContent='center'
           >
+            
             <CityCard name='Mumbai' image='./mumbai.jpg' />
             <CityCard name='Pune' image='./pune.jpg' />
             <CityCard name='Bangalore' image='./bangalore.jpg' />

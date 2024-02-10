@@ -24,7 +24,7 @@ const CreateEventPage = () => {
   const [eventTicketsPrice, seteventTicketsPrice] = useState('')
   const [eventTicketsCount, setEventTicketsCount] = useState('')
   const [eventDescription, setEventDescription] = useState('')
-  const [eventCity, setEventCity] = useState('')
+  const [eventAddress, setEventAddress] = useState('')
   const [isEventCreated, setIsEventCreated] = useState(false)
   const { user } = useAuthContext()
 
@@ -51,7 +51,7 @@ const CreateEventPage = () => {
         !eventTicketsCount ||
         !eventDescription ||
         !eventTicketsPrice||
-        !eventCity
+        !eventAddress
       ) {
         console.error('Please fill in all required fields.')
         return
@@ -73,11 +73,12 @@ const CreateEventPage = () => {
         // myEpoch,
         eventStartDate,
         eventEndDate,
+        eventAddress,
         eventLocation,
-        eventCity,
+
         eventTicketsCount,
         eventTicketsPrice,
-        eventDescription
+        eventDescription,
       }
       console.log('Event Data:', eventData)
 
@@ -197,16 +198,16 @@ const CreateEventPage = () => {
                   htmlFor='event-location'
                   className='block text-sm font-medium text-gray-700'
                 >
-                  Event Location
+                  Event Address
                 </label>
                 <input
                   id='event-location'
                   type='text'
                   className='input'
-                  value={eventLocation}
-                  onChange={(e) => setEventLocation(e.target.value)}
+                  value={eventAddress}
+                  onChange={(e) => setEventAddress(e.target.value)}
                   required
-                  placeholder='Enter Event Location'
+                  placeholder='Enter Event Address'
                 />
               </div>
               <div>
@@ -219,8 +220,8 @@ const CreateEventPage = () => {
                 <select
                   id='visibility'
                   className='input'
-                  value={eventCity}
-                  onChange={(e) => setEventCity(e.target.value)}
+                  value={eventLocation}
+                  onChange={(e) => setEventLocation(e.target.value)}
                 >
                   <option value='' disabled >
                     Select City
