@@ -69,7 +69,7 @@ const Bangalore = () => {
           </Button>
         </div>
 
-        <TimeItem />
+        <TimeItem categoryId="Bangalore"/>
       </div>
     </Layout>
   )

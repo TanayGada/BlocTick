@@ -56,7 +56,7 @@ const Delhi = () => {
           </Button>
         </div>
 
-        <TimeItem />
+        <TimeItem categoryId="Delhi" />
       </div>
     </Layout>
   )

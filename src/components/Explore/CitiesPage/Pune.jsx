@@ -56,7 +56,7 @@ const Pune = () => {
           </Button>
         </div>
 
-        <TimeItem />
+        <TimeItem categoryId="Pune"/>
       </div>
     </Layout>
   )

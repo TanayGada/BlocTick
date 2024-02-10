@@ -9,7 +9,7 @@ import TimeItem from '../TimeItem'
 const Mumbai = () => {
   return (
     <Layout>
-      <div class=' zm-container text-emerald-100  font-sans' x={{ opacity: 1 }}>
+      <div className=' zm-container text-emerald-100  font-sans' x={{ opacity: 1 }}>
         <div
           style={{
             height: '300px',
@@ -49,14 +49,14 @@ const Mumbai = () => {
           </Typography>
           <Button
             style={{ color: 'black', fontWeight: 'bolder' }}
-            disableFocusRipple
-            disableElevation
+            
+            
           >
             <AddIcon /> Submit Event
           </Button>
         </div>
 
-        <TimeItem />
+        <TimeItem categoryId ="Mumbai"/>
       </div>
     </Layout>
   )

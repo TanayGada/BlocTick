@@ -1,12 +1,85 @@
-import React from 'react'
-import Layout from '../../../Layout/Layout1'
+import {React,useState,useEffect} from 'react'
+import Layout from '../../Layout/Layout1'
 import { Typography } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import PlaceIcon from '@mui/icons-material/Place'
 import RegistrationCard from './RegistrationCard'
+import { useParams } from 'react-router-dom'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import axios from 'axios'
+
 
 const EventInfo = () => {
+   const { eventId } = useParams()
+  // const eventId = props.match.params.eventId
+  
+
+  const url = `http://localhost:5001/events/${eventId}`
+  const [loading, setLoading] = useState(true)
+  const [eventData, setEventData] = useState([])
+  
+  // const { cityEvents, dispatch } = useUpcomingEventsDataContext()
+  const { user } = useAuthContext()
+
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+
+        console.log('response:', response.data)
+        
+
+        const fetchedEventData = response.data
+        // const fetchedPastEvents2 = response.data.pastEvents;
+        // const fetchedCityEvents = fetchedCityEvents1.concat(fetchedPastEvents2)
+
+        setEventData(fetchedEventData)
+        // setPast(fetchedPastEvents2)
+        // console.log('cityEvents:', cityEvents)
+        // console.log('past:', past)
+
+        // dispatch({ type: 'SET_CITY_EVENTS', payload: data })
+      } catch (error) {
+        console.error('Error fetching upcoming events:', error)
+      } finally {
+        setLoading(false)
+        // console.log('cityEvents:', cityEvents);
+      }
+    }
+    if (user) {
+      fetchEventData()
+    }
+  }, [url, user, loading]) ///loading
+
+
+  const {
+    evenName,
+    eventStartDate,
+    eventEndDate,
+    eventLocatiom,
+    eventAddress,
+    eventDescription,
+    eventOrganizerEmailId,
+  } = eventData
+
+   const dateObject = new Date(eventStartDate)
+   // Extracting hours, minutes, and seconds
+   const hours = dateObject.getUTCHours()
+   const minutes = dateObject.getUTCMinutes()
+   const timeString = `${hours}:${minutes}`
+
+   const options = { day: 'numeric', month: 'short', year: 'numeric' }
+
+   const formattedDate = dateObject.toLocaleDateString('en-US', options)
+
+
+
+
   return (
     <Layout>
       <div className='flex gap-5 mt-20 '>
@@ -22,14 +95,14 @@ const EventInfo = () => {
               alt='Cindy Baker'
               src='https://mui.com/static/images/avatar/3.jpg'
             />
-            <Typography sx={{ alignSelf: 'center' }}> Author Name</Typography>
+            <Typography sx={{ alignSelf: 'center' }}> {eventOrganizerEmailId}</Typography>
           </div>
           <Typography>Contact the author</Typography>
           <Typography>Report Event</Typography>
         </div>
         <div className='right'>
           <Typography variant='h4' style={{ fontWeight: 'bolder' }}>
-            Event Title
+            {evenName}
           </Typography>
 
           {/* Date and address */}
@@ -41,8 +114,8 @@ const EventInfo = () => {
                 />
               </div>
               <div>
-                <Typography>Day, Date Month</Typography>
-                <Typography>Time</Typography>
+                <Typography>{formattedDate}</Typography>
+                <Typography>{timeString}</Typography>
               </div>
             </div>
             <div className='flex'>
@@ -50,8 +123,8 @@ const EventInfo = () => {
                 <PlaceIcon sx={{ fontSize: '50px', marginRight: '10px' }} />
               </div>
               <div>
-                <Typography>Venue</Typography>
-                <Typography>Address</Typography>
+                <Typography>{eventLocatiom}</Typography>
+                <Typography>{eventAddress}</Typography>
               </div>
             </div>
           </div>
@@ -65,19 +138,7 @@ const EventInfo = () => {
             <hr></hr>
             <Typography>
               <p className='mt-5 mb-5 font-bold'>
-                If you are a Chief Marketing Officer, Marketing Head, Digital
-                Marketing Head or e-Business Head of a leading brand located at
-                UAE then attending The Partner Connect Program must be on your
-                to-do list
-              </p>
-              <p className='mt-5 mb-5 font-bold'>
-                ​The Partner Connect Program shall allow you to meet a number of
-                partners that would add value to your marketing & digital
-                marketing goals for 2024
-              </p>
-              <p className='mt-5 mb-5 font-bold'>
-                ​Event Details - 09 February 2024 at Taj Business Bay, Dubai
-                4.00 p.m. onwards followed by Drinks & Dinner
+               {eventDescription}
               </p>
             </Typography>
           </div>
@@ -101,3 +162,4 @@ const EventInfo = () => {
 }
 
 export default EventInfo
+

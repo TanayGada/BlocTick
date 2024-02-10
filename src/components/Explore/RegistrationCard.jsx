@@ -4,8 +4,14 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { Avatar, Button, CardActionArea } from '@mui/material'
 import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined'
+import { useAuthContext } from '../../hooks/useAuthContext'
+
 
 const RegistrationCard = () => {
+const {user} = useAuthContext()
+
+
+
   return (
     <>
       <Card
@@ -40,7 +46,7 @@ const RegistrationCard = () => {
                 alt='Cindy Baker'
                 src='https://mui.com/static/images/avatar/3.jpg'
               />
-              <Typography style={{ alignSelf: 'center' }}>User name</Typography>
+              <Typography style={{ alignSelf: 'center' }}>{user.email}</Typography>
               <Typography style={{ alignSelf: 'center' }}>
                 User Email
               </Typography>
