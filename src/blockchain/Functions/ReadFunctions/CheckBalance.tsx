@@ -35,7 +35,7 @@ export function CheckBalance() {
     return (
       <>
         <div>Your Balance: {balance?.toString()}</div>
-        <div>Minimum Required Deposit: {requiredBalance}</div>
+        <div>Minimum Required Deposit: {requiredBalance*0.002/1e9}</div>
         {isNaN(parseInt(balance)) || parseInt(balance) < requiredBalance ? (
           <>
             <div>

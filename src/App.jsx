@@ -26,6 +26,16 @@ import Registration from './components/Manage-Event/Registration'
 import Guests from './components/Manage-Event/Guests'
 import EventInfo from './components/Explore/EventInfo'
 
+
+
+
+
+
+
+
+
+
+
 const App = () => {
   const { user } = useAuthContext()
   return (

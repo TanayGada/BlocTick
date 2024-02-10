@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@arco-design/web-react": "^2.59.1",
+    "@dynamic-labs/ethereum": "^1.1.0",
+    "@dynamic-labs/sdk-react-core": "^1.1.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",

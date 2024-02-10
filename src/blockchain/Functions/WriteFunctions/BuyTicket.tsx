@@ -9,7 +9,7 @@ import { abi } from '../../../abi'
 import { parseEther } from 'viem'
 import { useNavigate } from 'react-router-dom'
 
-export function Withdraw() {
+export function BuyTicket({eventName ,myEpoch}) {
   const { address } = useAccount()
   const { data: hash, error, isPending, writeContract } = useWriteContract()
   async function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -19,9 +19,14 @@ export function Withdraw() {
     writeContract({
       address: '0x23Eb585676AeC3B57D22A5752e09103AB9a92eb6',
       abi,
-      functionName: 'withdraw',
-      args: [0n],
-      value: 0n,
+      functionName: 'buyTickets',
+      args: [
+        eventName,
+       ['0n'],
+       [1n],
+       myEpoch
+      ],
+      value: 1n,
       account: address,
     })
   }
@@ -44,7 +49,6 @@ export function Withdraw() {
       {isConfirmed && (
         <div>
           <div>Transaction confirmed.</div>
-         
         </div>
       )}
       {error && (

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import EventAbsent from './EventAbsent'
 import EventPresent from './EventPresent'
 import axios from 'axios'
-import { usePastEventsDataContext } from '../../../hooks/usePastEventsDataContext'
+
 import { useAuthContext } from '../../../hooks/useAuthContext'
 
 const url = '/events/past'
@@ -11,29 +11,28 @@ const url = '/events/past'
 const Past = () => {
   const [loading, setLoading] = useState(true)
 
-  const { PastEventsData, dispatch } = usePastEventsDataContext()
   const { user } = useAuthContext()
 
-  useEffect(() => {
-    const fetchPastEventsData = async () => {
-      try {
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        })
-        const data = response.data
-        dispatch({ type: 'SET_PAST_EVENTS', payload: data })
-      } catch (error) {
-        console.error('Error fetching past events:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    if (user) {
-      fetchPastEventsData()
-    }
-  }, [dispatch, user])
+  // useEffect(() => {
+  //   const fetchPastEventsData = async () => {
+  //     try {
+  //       const response = await axios.get(url, {
+  //         headers: {
+  //           Authorization: `Bearer ${user.token}`,
+  //         },
+  //       })
+  //       const data = response.data
+  //       dispatch({ type: 'SET_PAST_EVENTS', payload: data })
+  //     } catch (error) {
+  //       console.error('Error fetching past events:', error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   if (user) {
+  //     fetchPastEventsData()
+  //   }
+  // }, [dispatch, user])
 
   return (
     // <div style={{ marginLeft: '1rem' }}>

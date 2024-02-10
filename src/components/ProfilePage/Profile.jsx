@@ -2,6 +2,7 @@ import React from 'react'
 import { ConnectWallet } from '../../blockchain/ConnectWallet'
 import Layout4 from '../../Layout/Layout4'
 import { CheckBalance } from '../../blockchain/Functions/ReadFunctions/CheckBalance'
+import { Withdraw } from '../../blockchain/Functions/WriteFunctions/Withdraw'
 
 function Profile() {
   return (
@@ -14,6 +15,8 @@ function Profile() {
         borderRadius: '1rem',
       }}>
         <ConnectWallet />
+
+        <Withdraw/>
 
       </div>
     </Layout4>

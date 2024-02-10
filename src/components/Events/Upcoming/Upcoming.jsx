@@ -3,38 +3,65 @@ import PropTypes from 'prop-types'
 import EventAbsent from './EventAbsent'
 import EventPresent from './EventPresent'
 import axios from 'axios'
-import { useUpcomingEventsDataContext } from '../../../hooks/useUpcomingEventsDataContext'
+
 import { useAuthContext } from '../../../hooks/useAuthContext'
 
-const url = '/events/upcoming'
+
+
+
+
 
 const Upcoming = () => {
-  const [loading, setLoading] = useState(true)
+const { user } = useAuthContext()
+const emailId = user.email
 
-  const { upcomingEventsData, dispatch } = useUpcomingEventsDataContext()
-  const { user } = useAuthContext()
+const url = `/customers/${emailId}/`
+  
+  const [loading, setLoading] = useState(true)
+  const [upcomingEventData, setUpcomingEventData] = useState([])
+  const [pastEventData, setPastEventData] = useState([])
+  
+  
+  
 
   useEffect(() => {
-    const fetchUpcomingEventsData = async () => {
+    const fetchEventData = async () => {
       try {
         const response = await axios.get(url, {
           headers: {
-            'Authorization': `Bearer ${user.token}`,
+            Authorization: `Bearer ${user.token}`,
           },
         })
-        const data = response.data
-        dispatch({ type: 'SET_UPCOMING_EVENTS', payload: data })
+
+        console.log('response:', response.data)
+        
+
+        // const fetchedEventData = response.data
+        const fetchedPastEvents = response.data.pastEvents;
+        const fetchedUpcomingEvents = response.data.upcomingEvents;
+
+        setUpcomingEventData(fetchedUpcomingEvents)
+        setPastEventData(fetchedPastEvents)
+        console.log('upcomingEventData:', upcomingEventData)
+        console.log('pastEventData:', pastEventData)
+        // setPast(fetchedPastEvents2)
+        // console.log('cityEvents:', cityEvents)
+        // console.log('past:', past)
+
+        // dispatch({ type: 'SET_CITY_EVENTS', payload: data })
       } catch (error) {
         console.error('Error fetching upcoming events:', error)
       } finally {
         setLoading(false)
+        // console.log('cityEvents:', cityEvents);
       }
     }
-    if(user){
-      fetchUpcomingEventsData()
+    if (user) {
+      fetchEventData()
     }
-    
-  }, [dispatch, user])
+  }, [url, user, loading]) ///loading
+
+
 
   return (
     // <div style={{ marginLeft: '1rem' }}>
@@ -48,7 +75,7 @@ const Upcoming = () => {
     // </div>
     <h1>Upcoming</h1>
   )
-}
+  }
 
 // // Use prop types to validate the props that you pass to your child components
 // Upcoming.propTypes = {

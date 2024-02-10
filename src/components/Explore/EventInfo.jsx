@@ -61,7 +61,7 @@ const EventInfo = () => {
     evenName,
     eventStartDate,
     eventEndDate,
-    eventLocatiom,
+    eventLocation,
     eventAddress,
     eventDescription,
     eventOrganizerEmailId,
@@ -123,7 +123,7 @@ const EventInfo = () => {
                 <PlaceIcon sx={{ fontSize: '50px', marginRight: '10px' }} />
               </div>
               <div>
-                <Typography>{eventLocatiom}</Typography>
+                <Typography>{eventLocation}</Typography>
                 <Typography>{eventAddress}</Typography>
               </div>
             </div>
@@ -148,10 +148,9 @@ const EventInfo = () => {
             <Typography variant='h5'>Location</Typography>
             <hr></hr>
             <Typography>
-              <p className='mt-5 font-extrabold'>Taj Dubai</p>
+              <p className='mt-5 font-extrabold'>{eventLocation}</p>
               <p className='mb-5 font-bold'>
-                Burj Khalifa St - Business Bay - Dubai - United Arab Emirates
-                Opera Banquet 3
+                {eventAddress}
               </p>
             </Typography>
           </div>

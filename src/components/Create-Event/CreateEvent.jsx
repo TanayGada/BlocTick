@@ -83,7 +83,7 @@ const CreateEventPage = () => {
       console.log('Event Data:', eventData)
 
 
-      // await CreateEvent({eventName ,eventTicketsPrice, eventTicketsCount, myEpoch})
+      await CreateEvent({eventName ,eventTicketsPrice, eventTicketsCount, myEpoch})
 
       // Send data to backend
       const response = await fetch('http://localhost:5001/events/', {

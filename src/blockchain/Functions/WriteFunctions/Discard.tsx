@@ -44,7 +44,6 @@ export function Withdraw() {
       {isConfirmed && (
         <div>
           <div>Transaction confirmed.</div>
-         
         </div>
       )}
       {error && (
