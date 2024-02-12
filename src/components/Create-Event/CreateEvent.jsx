@@ -1,22 +1,15 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+
 import { useNavigate } from 'react-router-dom'
 import Layout from '../../Layout/Layout1'
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { useWriteContract } from 'wagmi'
-import { config } from '../../config'
-import { abi } from '../../abi'
-import { Deposit } from '../../blockchain/Functions/WriteFunctions/Deposit'
-import { Account } from '../../blockchain/Functions/ReadFunctions/Account'
-import { WalletOptions } from '../../blockchain/Functions/ReadFunctions/wallet-options'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ConnectWallet } from '../../blockchain/ConnectWallet'
-import { CheckBalance } from '../../blockchain/Functions/ReadFunctions/CheckBalance'
+
 import { CreateEvent } from '../../blockchain/Functions/WriteFunctions/CreateEvent'
 import {useAccount} from 'wagmi'
-
+import {v4 as uuidv4} from 'uuid';
 
 const CreateEventPage = () => {
+ 
   const [eventName, setEventName] = useState('')
   const [eventStartDate, setEventStartDate] = useState('')
   const [eventEndDate, setEventEndDate] = useState('')
@@ -62,12 +55,15 @@ const CreateEventPage = () => {
       if (eventTicketsCount <= 0) {
         console.error('Please enter a valid tickets count.')
         return
-      }
+      } 
+      let eventId = uuidv4()
       var eventOrganizerEmailId = user.email
       var myDate = new Date(eventStartDate);
       var myEpoch = myDate.getTime()/1000.0;
       // Data to be sent to the backend
+      console.log(eventId)
       const eventData = {
+        eventId,
         eventName,
         eventOrganizerEmailId,
         // myEpoch,
@@ -83,7 +79,7 @@ const CreateEventPage = () => {
       console.log('Event Data:', eventData)
 
 
-      await CreateEvent({eventName ,eventTicketsPrice, eventTicketsCount, myEpoch})
+      await CreateEvent({eventId ,eventTicketsPrice, eventTicketsCount, myEpoch})
 
       // Send data to backend
       const response = await fetch('http://localhost:5001/events/', {
@@ -113,7 +109,7 @@ const CreateEventPage = () => {
         <div
           className='max-w-3xl rounded-lg shadow-xl p-8 sm:p-5'
           style={{
-            width: '70%',
+            width: '40%',
             backdropFilter: 'blur(10px)',
             backgroundColor: 'rgba(255, 255, 255, 0.5)',
           }}

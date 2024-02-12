@@ -18,7 +18,7 @@ export function CheckBalance() {
     config,
     abi,
     functionName: 'checkBalance',
-    address: '0x23Eb585676AeC3B57D22A5752e09103AB9a92eb6', // contract address
+    address: '0x34a0286c6cd5aB85F2A376939D97Be4F01b9FC6D', // contract address
     args: [],
     account: address, // user ka account address
   })
@@ -34,21 +34,20 @@ export function CheckBalance() {
   if (address) {
     return (
       <>
-        <div>Your Balance: {balance?.toString()}</div>
-        <div>Minimum Required Deposit: {requiredBalance*0.002/1e9}</div>
+        <div>Your Balance: {20000}</div>
+        <div>Minimum Required Deposit: {(requiredBalance * 0.002) / 1e9}</div>
         {isNaN(parseInt(balance)) || parseInt(balance) < requiredBalance ? (
           <>
             <div>
               You Need to Deposit:{' '}
               {isNaN(parseInt(balance))
-                ? requiredBalance
-                : requiredBalance - parseInt(balance)}
+                ? 2*requiredBalance / 1e12
+                : 2*requiredBalance / 1e12}
             </div>
             <Deposit />
           </>
         ) : (
           <div>
-            
             <div> You can Create Event</div>
             <button
               onClick={() => {

@@ -8,6 +8,7 @@ import RegistrationCard from './RegistrationCard'
 import { useParams } from 'react-router-dom'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import axios from 'axios'
+import Image from '../../Image'
 
 
 const EventInfo = () => {
@@ -84,18 +85,19 @@ const EventInfo = () => {
     <Layout>
       <div className='flex gap-5 mt-20 '>
         <div className='left ' style={{ width: '500px', height: '500px' }}>
-          <img
-            src='https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=280,height=280/event-covers/q8/11e3a5cf-82a6-4f45-a0b6-8575aad328a8'
-            alt='event image'
+          <div
+           
             className='h-72  mb-10'
-          />
+          >
+            <Image/>
+          </div>
           <Typography>Hosted By</Typography>
           <div className='flex gap-2'>
-            <Avatar
-              alt='Cindy Baker'
-              src='https://mui.com/static/images/avatar/3.jpg'
-            />
-            <Typography sx={{ alignSelf: 'center' }}> {eventOrganizerEmailId}</Typography>
+            <Avatar src='/broken-image.jpg' />
+            <Typography sx={{ alignSelf: 'center' }}>
+              {' '}
+              {eventOrganizerEmailId}
+            </Typography>
           </div>
           <Typography>Contact the author</Typography>
           <Typography>Report Event</Typography>
@@ -137,9 +139,7 @@ const EventInfo = () => {
             <Typography variant='h5'>About Event</Typography>
             <hr></hr>
             <Typography>
-              <p className='mt-5 mb-5 font-bold'>
-               {eventDescription}
-              </p>
+              <p className='mt-5 mb-5 font-bold'>{eventDescription}</p>
             </Typography>
           </div>
 
@@ -149,9 +149,7 @@ const EventInfo = () => {
             <hr></hr>
             <Typography>
               <p className='mt-5 font-extrabold'>{eventLocation}</p>
-              <p className='mb-5 font-bold'>
-                {eventAddress}
-              </p>
+              <p className='mb-5 font-bold'>{eventAddress}</p>
             </Typography>
           </div>
         </div>

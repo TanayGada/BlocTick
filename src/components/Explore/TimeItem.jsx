@@ -4,6 +4,7 @@ import {HiCalendar } from 'react-icons/hi'
 import axios from 'axios'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useNavigate } from 'react-router-dom'
+import Image from '../../Image'
 
 
 
@@ -60,11 +61,13 @@ const formattedDate = dateObject.toLocaleDateString('en-US', options)
                 </Timeline.Body>
               </div>
               <div style={{ alignSelf: 'center' }}>
-                <img
-                  src='https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=75,width=280,height=280/event-covers/rj/0b9ea337-be78-4a02-88a3-c5695b3625ed'
-                  alt='img'
+                <div
+                  
                   style={{ borderRadius: '10px', width: '200px' }}
-                ></img>
+                >
+                <Image/>
+                
+                </div>
               </div>
             </div>
           </Timeline.Content>

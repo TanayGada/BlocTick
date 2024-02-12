@@ -15,12 +15,13 @@ const Upcoming = () => {
 const { user } = useAuthContext()
 const emailId = user.email
 
-const url = `/customers/${emailId}/`
+
+
+const url = `http://localhost:5001/customers/${emailId}`
   
   const [loading, setLoading] = useState(true)
   const [upcomingEventData, setUpcomingEventData] = useState([])
-  const [pastEventData, setPastEventData] = useState([])
-  
+
   
   
 
@@ -34,26 +35,17 @@ const url = `/customers/${emailId}/`
         })
 
         console.log('response:', response.data)
-        
-
-        // const fetchedEventData = response.data
-        const fetchedPastEvents = response.data.pastEvents;
         const fetchedUpcomingEvents = response.data.upcomingEvents;
 
         setUpcomingEventData(fetchedUpcomingEvents)
-        setPastEventData(fetchedPastEvents)
+        // 
         console.log('upcomingEventData:', upcomingEventData)
-        console.log('pastEventData:', pastEventData)
-        // setPast(fetchedPastEvents2)
-        // console.log('cityEvents:', cityEvents)
-        // console.log('past:', past)
 
-        // dispatch({ type: 'SET_CITY_EVENTS', payload: data })
       } catch (error) {
         console.error('Error fetching upcoming events:', error)
       } finally {
         setLoading(false)
-        // console.log('cityEvents:', cityEvents);
+   
       }
     }
     if (user) {
@@ -64,16 +56,15 @@ const url = `/customers/${emailId}/`
 
 
   return (
-    // <div style={{ marginLeft: '1rem' }}>
-    //   {loading ? (
-    //     console.log('Loading')
-    //   ) : upcomingEventsData != null ? (
-    //     <EventPresent events={upcomingEventsData} />
-    //   ) : (
-    //     <EventAbsent />
-    //   )}
-    // </div>
-    <h1>Upcoming</h1>
+    <div style={{ marginLeft: '1rem' }}>
+      {loading ? (
+        console.log('Loading')
+      ) : upcomingEventData != null ? (
+        <EventPresent events={upcomingEventData} />
+      ) : (
+        <EventAbsent />
+      )}
+    </div>
   )
   }
 

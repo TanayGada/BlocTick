@@ -7,6 +7,7 @@ import guitarAnimationData from "./guitar.json";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import '../../../src/App.css'
 
 const LandingPage = () => {
   const container = useRef(null);
@@ -41,9 +42,9 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex animated-background" >
         <div
-          className="text-purple-200 font-sans m-40 text-balance"
+          className="text-black-200 font-sans m-40 text-balance"
           style={{ marginLeft: "4rem" }}
         >
 

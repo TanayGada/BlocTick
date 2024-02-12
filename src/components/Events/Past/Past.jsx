@@ -6,45 +6,52 @@ import axios from 'axios'
 
 import { useAuthContext } from '../../../hooks/useAuthContext'
 
-const url = '/events/past'
-
 const Past = () => {
-  const [loading, setLoading] = useState(true)
-
   const { user } = useAuthContext()
+ 
+  const emailId = user.email
 
-  // useEffect(() => {
-  //   const fetchPastEventsData = async () => {
-  //     try {
-  //       const response = await axios.get(url, {
-  //         headers: {
-  //           Authorization: `Bearer ${user.token}`,
-  //         },
-  //       })
-  //       const data = response.data
-  //       dispatch({ type: 'SET_PAST_EVENTS', payload: data })
-  //     } catch (error) {
-  //       console.error('Error fetching past events:', error)
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   if (user) {
-  //     fetchPastEventsData()
-  //   }
-  // }, [dispatch, user])
+  const url = `http://localhost:5001/customers/${emailId}`
+
+  const [loading, setLoading] = useState(true)
+  
+  const [pastEventData, setPastEventData] = useState([])
+
+  useEffect(() => {
+    const fetchEventData = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+
+        console.log('response:', response.data)
+        const fetchedPastEvents = response.data.pastEvents
+        setPastEventData(fetchedPastEvents)
+        console.log('pastEventData:', pastEventData)
+      } catch (error) {
+        console.error('Error fetching upcoming events:', error)
+      } finally {
+        setLoading(false)
+        
+      }
+    }
+    if (user) {
+      fetchEventData()
+    }
+  }, [url, user, loading]) ///loading
 
   return (
-    // <div style={{ marginLeft: '1rem' }}>
-    //   {loading ? (
-    //     console.log('Loading')
-    //   ) : PastEventsData != null ? (
-    //     <EventPresent events={PastEventsData} />
-    //   ) : (
-    //     <EventAbsent />
-    //   )}
-    // </div>
-    <h1>Past</h1>
+    <div style={{ marginLeft: '1rem' }}>
+      {loading ? (
+        console.log('Loading')
+      ) : pastEventData != null ? (
+        <EventPresent events={pastEventData} />
+      ) : (
+        <EventAbsent />
+      )}
+    </div>
   )
 }
 

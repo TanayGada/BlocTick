@@ -3,6 +3,12 @@ import Grid from "@mui/material/Unstable_Grid2";
 import CityCard from './CityCard'
 import SubscribeCards from './SubscribeCards';
 import Layout from '../../Layout/Layout1'
+import Mumbai from '../../assets/Mumbai.jpg'
+import Pune from '../../assets/Pune.png'
+import Jaipur from '../../assets/Jaipur.png'
+import Delhi from '../../assets/Delhi.jpg'
+import Chennai from '../../assets/Chennai.jpg'
+import Bangalore from '../../assets/Bangalore.jpg'
 
 const ExplorePage = () => {
   return (
@@ -38,12 +44,12 @@ const ExplorePage = () => {
             justifyContent='center'
           >
             
-            <CityCard name='Mumbai' image='./mumbai.jpg' />
-            <CityCard name='Pune' image='./pune.jpg' />
-            <CityCard name='Bangalore' image='./bangalore.jpg' />
-            <CityCard name='Chennai' image='./chennai.jpg' />
-            <CityCard name='Delhi' image='./delhi.jpg' />
-            <CityCard name='Jaipur' image='./jaipur.jpg' />
+            <CityCard name='Mumbai' image={Mumbai} />
+            <CityCard name='Pune' image={Pune} />
+            <CityCard name='Bangalore' image={Bangalore} />
+            <CityCard name='Chennai' image={Chennai} />
+            <CityCard name='Delhi' image={Delhi} />
+            <CityCard name='Jaipur' image={Jaipur} />
           </Grid>
         </div>
 

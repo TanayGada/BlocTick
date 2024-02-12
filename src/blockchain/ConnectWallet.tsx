@@ -1,13 +1,13 @@
 import React from 'react'
 import { Account } from './Functions/ReadFunctions/Account'
 import { WalletOptions } from './Functions/ReadFunctions/wallet-options'
-import { useAccount, useDisconnect} from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 import { CheckBalance } from './Functions/ReadFunctions/CheckBalance'
-
+import { Typography } from '@mui/material'
 
 export function ConnectWallet() {
   const { address } = useAccount()
-    const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect()
   if (address)
     return (
       <div>
@@ -21,8 +21,13 @@ export function ConnectWallet() {
     )
   return (
     <>
-        <h1>Connect Wallet</h1>
-      <WalletOptions />
+      <div className='flex-col  '>
+        <div className='justify-center text-black font-extrabold ml-4'>
+          <p>Connect Wallet:</p>
+        </div>
+
+        <WalletOptions />
+      </div>
     </>
   )
 }

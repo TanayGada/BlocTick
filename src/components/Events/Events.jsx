@@ -26,6 +26,19 @@ const EventsPage = () => {
     },
   ]
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
   return (
     <Layout>
       <Tabs value={activeTab} onChange={(newValue) => setActiveTab(newValue)}>

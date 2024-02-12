@@ -9,7 +9,7 @@ export function CustomerInfo() {
     config,
     abi,
     functionName: 'CustomerInfo',
-    address: '0x23Eb585676AeC3B57D22A5752e09103AB9a92eb6',
+    address: '0x34a0286c6cd5aB85F2A376939D97Be4F01b9FC6D',
 
     args: ['type', 'count'],
     account: address, //our address

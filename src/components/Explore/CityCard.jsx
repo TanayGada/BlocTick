@@ -38,7 +38,7 @@ export default function CityCard({name,image}) {
       </CardActionArea>
       <CardContent className='flex '>
         <Typography variant='h2' sx={{ fontSize: '20px', textAlign: 'center' }}>
-          
+          {name}
         </Typography>
       </CardContent>
       </div>

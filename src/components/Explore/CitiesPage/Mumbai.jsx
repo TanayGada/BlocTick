@@ -5,6 +5,7 @@ import { Button } from 'flowbite-react'
 import AddIcon from '@mui/icons-material/Add'
 import Layout from '../../../Layout/Layout1'
 import TimeItem from '../TimeItem'
+import MumbaiIm from '../../../assets/Mumbai.jpg'
 
 const Mumbai = () => {
   return (
@@ -13,10 +14,12 @@ const Mumbai = () => {
         <div
           style={{
             height: '300px',
+            backgroundImage: `url(${MumbaiIm})`,
             display: 'flex',
             alignItems: 'center',
           }}
         >
+         
           <div className='flex-col ml-6'>
             <Typography
               variant='h6'

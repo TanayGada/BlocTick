@@ -15,14 +15,14 @@ export function Deposit() {
   const { data: hash, error, isPending, writeContract } = useWriteContract()
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    // const formData = new FormData(e.target as HTMLFormElement);
-    // const tokenId = formData.get("tokenId") as string;
+
+    const input = '0.02'
     writeContract({
-      address: '0x23Eb585676AeC3B57D22A5752e09103AB9a92eb6',
+      address: '0x34a0286c6cd5aB85F2A376939D97Be4F01b9FC6D',
       abi,
       functionName: 'deposit',
       args: [],
-      value: parseEther('0.01'),
+      value: parseEther(input),
       account: address,
     })
   }
@@ -40,7 +40,7 @@ export function Deposit() {
       <button disabled={isPending} type='submit'>
         {isPending ? 'Confirming...' : 'deposit'}
       </button>
-      {hash && <div>Transaction Hash: {hash}</div>}
+      {/* {hash && <div>Transaction Hash: {hash}</div>} */}
       {isConfirming && <div>Waiting for confirmation...</div>}
       {isConfirmed && (
         <div>

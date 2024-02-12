@@ -26,7 +26,7 @@ export function BuyTicket({eventName ,myEpoch}) {
        [1n],
        myEpoch
       ],
-      value: 1n,
+      value: '',
       account: address,
     })
   }
